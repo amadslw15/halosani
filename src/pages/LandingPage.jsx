@@ -611,7 +611,7 @@ const LandingPage = () => {
             </div>
             <div className="footer-column">
               <h4>Legal</h4>
-              <a href="/stakeholder/login">Syarat & Ketentuan</a>
+              <a href="/stakeholder/login">care.mind.id</a>
               <a href="/admin/login">Admin</a>
             </div>
           </div>
