@@ -100,7 +100,7 @@ const BlogPage = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('admin_token');
-    navigate('/stakholder/login');
+    navigate('/stakeholder/login');
   };
 
   // Format deskripsi untuk mempertahankan line breaks

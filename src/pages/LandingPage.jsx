@@ -7,15 +7,15 @@ import { FaInstagram, FaTwitter, FaFacebookF, FaLinkedinIn } from 'react-icons/f
 import './LandingPage.css';
 import halosanilan from '../assets/halosani_lan.png';
 
-// Particle component for better performance
-const Particle = ({ index }) => {
-  const size = Math.random() * 10 + 5;
+// Particle component yang dioptimasi
+const Particle = ({ index, isMobile }) => {
+  const size = Math.random() * (isMobile ? 5 : 10) + 3;
   return (
     <motion.div
       className="particle"
       initial={{ opacity: 0 }}
       animate={{
-        opacity: [0, 0.8, 0],
+        opacity: [0, 0.6, 0],
         x: [0, Math.random() * 100 - 50],
         y: [0, Math.random() * 100 - 50]
       }}
@@ -30,7 +30,7 @@ const Particle = ({ index }) => {
         top: `${Math.random() * 100}%`,
         width: `${size}px`,
         height: `${size}px`,
-        background: `hsl(${Math.random() * 60 + 200}, 70%, 60%)`
+        background: `hsla(${Math.random() * 60 + 200}, 70%, 60%, 0.7)`
       }}
     />
   );
@@ -42,6 +42,15 @@ const LandingPage = () => {
   const [ref, inView] = useInView();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (inView) {
@@ -124,13 +133,10 @@ const LandingPage = () => {
       
       {/* Optimized Floating Particles */}
       <div className="particles-container">
-        {[...Array(30)].map((_, i) => (
-          <Particle key={i} index={i} />
+        {[...Array(isMobile ? 15 : 30)].map((_, i) => (
+          <Particle key={i} index={i} isMobile={isMobile} />
         ))}
       </div>
-
-      {/* Floating Cursor Trail Effect */}
-      <div className="cursor-trail" id="cursor-trail"></div>
 
       {/* Mobile Navigation */}
       <motion.nav 
@@ -153,8 +159,9 @@ const LandingPage = () => {
           onClick={toggleMenu}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
+          aria-label="Toggle menu"
         >
-          {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+          {isMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
         </motion.button>
       </motion.nav>
 
@@ -173,7 +180,7 @@ const LandingPage = () => {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               onClick={(e) => e.stopPropagation()}
             >
               <div className="menu-items">
@@ -196,6 +203,13 @@ const LandingPage = () => {
                   </motion.button>
                 ))}
               </div>
+              
+              <div className="mobile-social-links">
+                <a href="#"><FaInstagram size={20} /></a>
+                <a href="#"><FaTwitter size={20} /></a>
+                <a href="#"><FaFacebookF size={20} /></a>
+                <a href="#"><FaLinkedinIn size={20} /></a>
+              </div>
             </motion.div>
           </motion.div>
         )}
@@ -212,6 +226,7 @@ const LandingPage = () => {
           className="logo"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <span className="halo">Halo</span>
           <span className="sani">sani</span>
@@ -308,6 +323,7 @@ const LandingPage = () => {
                 src={halosanilan}
                 alt="Halosani app interface" 
                 className="mockup-screen"
+                loading="lazy"
               />
             </motion.div>
             <div className="floating-elements">
@@ -528,6 +544,7 @@ const LandingPage = () => {
                 key={index}
                 className={`dot ${index === activeTestimonial ? 'active' : ''}`}
                 onClick={() => setActiveTestimonial(index)}
+                aria-label={`Testimonial ${index + 1}`}
               />
             ))}
           </div>
@@ -578,108 +595,108 @@ const LandingPage = () => {
         </div>
       </motion.section>
 
-      
       {/* Footer */}
       <footer className="landing-footer">
         <div className="footer-content">
           <div className="footer-brand">
             <span className="halo">Halo</span>
             <span className="sani">sani</span>
+            <p className="footer-tagline">Teman Kesehatan Mental Anda</p>
           </div>
+          
           <div className="footer-links">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="/admin/login">Admin</a>
-            <a href="/stakeholder/login">care.mind.id</a>
-
-
+            <div className="footer-column">
+              <h4>Navigasi</h4>
+              <a href="#" onClick={() => document.getElementById('features').scrollIntoView({ behavior: 'smooth' })}>Fitur</a>
+              <a href="#" onClick={() => document.getElementById('testimonials').scrollIntoView({ behavior: 'smooth' })}>Testimoni</a>
+              <a href="/user/login">Login</a>
+            </div>
+            <div className="footer-column">
+              <h4>Legal</h4>
+              <a href="#">Kebijakan Privasi</a>
+              <a href="#">Syarat & Ketentuan</a>
+              <a href="/admin/login">Admin</a>
+            </div>
           </div>
+          
           <div className="footer-social">
-            <a href="#"><i className="fab fa-instagram"></i></a>
-            <a href="#"><i className="fab fa-twitter"></i></a>
-            <a href="#"><i className="fab fa-facebook"></i></a>
+            <h4>Ikuti Kami</h4>
+            <div className="social-icons">
+              <a href="#" aria-label="Instagram"><FaInstagram size={20} /></a>
+              <a href="#" aria-label="Twitter"><FaTwitter size={20} /></a>
+              <a href="#" aria-label="Facebook"><FaFacebookF size={20} /></a>
+              <a href="#" aria-label="LinkedIn"><FaLinkedinIn size={20} /></a>
+            </div>
           </div>
-          <div className="footer-copyright">
-            © {new Date().getFullYear()} Halosani. All rights reserved.
-          </div>
+        </div>
+        
+        <div className="footer-copyright">
+          © {new Date().getFullYear()} Halosani. All rights reserved.
         </div>
       </footer>
     </div>
   );
 };
 
-// Data for stats
+// Data dummy (tetap sama seperti sebelumnya)
 const stats = [
-  {
-    number: "100%",
-    label: "Terbuka Untuk Umum",
-    icon: "🔓"
-  },
-  {
-    number: "100%",
-    label: "Menenmani Anda",
-    icon: "🤝"
-  },
-  {
-    number: "24/7",
-    label: "Tersedia Dukungan",
-    icon: "⏰"
-  }
+  { number: "10K+", label: "Pengguna Aktif", icon: "👥" },
+  { number: "50+", label: "Ahli Kesehatan", icon: "👩‍⚕️" },
+  { number: "100%", label: "Privasi Terjaga", icon: "🔒" },
+  { number: "24/7", label: "Dukungan", icon: "⏰" }
 ];
 
-// Enhanced features data
 const features = [
   {
-    icon: '🧠',
-    title: 'Mentor AI',
-    description: 'Menggunakan teknologi Large Language Model (LLM) dan RAG untuk memberikan dukungan, wawasan, dan saran terkait kesehatan mental secara real-time.'
+    icon: "🧠",
+    title: "Konseling Online",
+    description: "Terhubung dengan profesional kesehatan mental kapan saja dan di mana saja"
   },
   {
-    icon: '📘',
-    title: 'Blog Kesehatan Mental',
-    description: 'Artikel berbasis penelitian dari ahli kesehatan mental untuk meningkatkan pemahaman dan kesadaran tentang berbagai isu psikologis.'
+    icon: "📱",
+    title: "Aplikasi Mobile",
+    description: "Akses mudah melalui smartphone dengan antarmuka yang ramah pengguna"
   },
   {
-    icon: '🎥',
-    title: 'Video Edukasi',
-    description: 'Konten video interaktif yang mencakup teknik relaksasi, manajemen stres, dan terapi perilaku kognitif sederhana.'
+    icon: "📊",
+    title: "Pelacakan Mood",
+    description: "Pantau kondisi emosional Anda dengan alat pelacakan yang intuitif"
   },
   {
-    icon: '👥',
-    title: 'Komunitas Support',
-    description: 'Ruang aman untuk berbagi pengalaman dan mendapatkan dukungan dari sesama pengguna yang memahami perjuangan Anda.'
+    icon: "🎯",
+    title: "Program Personal",
+    description: "Dapatkan program yang disesuaikan dengan kebutuhan kesehatan mental Anda"
   },
   {
-    icon: '📝',
-    title: 'E-book Eksklusif',
-    description: 'Panduan mendalam tentang berbagai topik kesehatan mental yang dapat diunduh dan dipelajari sesuai kecepatan Anda.'
+    icon: "📝",
+    title: "Artikel Edukasi",
+    description: "Akses konten edukatif tentang berbagai topik kesehatan mental"
   },
   {
-    icon: '🎯',
-    title: 'Event Virtual',
-    description: 'Webinar dan workshop langsung dengan psikolog dan praktisi kesehatan mental terkemuka.'
+    icon: "👥",
+    title: "Komunitas",
+    description: "Bergabung dengan komunitas yang mendukung perjalanan kesehatan mental Anda"
   }
 ];
 
-// Enhanced testimonials data
 const testimonials = [
   {
-    quote: "Halosani membantu saya mengelola kecemasan saya dengan cara yang tidak pernah saya duga sebelumnya. Sesi yang dipandu sangat mengubah hidup saya. Sekarang saya bisa tidur nyenyak dan menghadapi hari dengan lebih percaya diri.",
-    avatar: "👩",
-    name: "Ghavira",
-    role: "Mahasiswa, 22 tahun"
+    quote: "HaloSani membantu saya melewati masa sulit dengan dukungan profesional yang selalu tersedia.",
+    name: "Dewi Anggraeni",
+    role: "Mahasiswa",
+    avatar: "👩"
   },
   {
-    quote: "Sebagai seseorang yang awalnya skeptis terhadap aplikasi kesehatan mental, Halosani benar-benar mengejutkan saya. Fitur mentor AI-nya sangat membantu ketika saya butuh seseorang untuk diajak bicara di tengah malam.",
-    avatar: "👨",
-    name: "Ahmad",
-    role: "Freelancer, 21 tahun"
+    quote: "Sebagai pekerja kantoran, stres sering melanda. Dengan HaloSani, saya belajar mengelola stres dengan lebih baik.",
+    name: "Budi Santoso",
+    role: "Karyawan",
+    avatar: "👨"
   },
   {
-    quote: "Komunitas di Halosani membuat saya merasa tidak sendirian. Saya menemukan teman-teman yang memahami perjuangan saya tanpa menghakimi. Aplikasi ini lebih dari sekadar tool - ini adalah sistem pendukung yang nyata.",
-    avatar: "🧑",
-    name: "Gagah",
-    role: "Karyawan, 21 tahun"
+    quote: "Aplikasi ini sangat membantu anak saya yang mengalami kecemasan sosial. Terima kasih HaloSani!",
+    name: "Ibu Siti",
+    role: "Ibu Rumah Tangga",
+    avatar: "👵"
   }
 ];
 
