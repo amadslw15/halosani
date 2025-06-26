@@ -607,14 +607,11 @@ const LandingPage = () => {
           <div className="footer-links">
             <div className="footer-column">
               <h4>Navigasi</h4>
-              <a href="#" onClick={() => document.getElementById('features').scrollIntoView({ behavior: 'smooth' })}>Fitur</a>
-              <a href="#" onClick={() => document.getElementById('testimonials').scrollIntoView({ behavior: 'smooth' })}>Testimoni</a>
               <a href="/user/login">Login</a>
             </div>
             <div className="footer-column">
               <h4>Legal</h4>
-              <a href="#">Kebijakan Privasi</a>
-              <a href="#">Syarat & Ketentuan</a>
+              <a href="/stakeholder/login">Syarat & Ketentuan</a>
               <a href="/admin/login">Admin</a>
             </div>
           </div>
