@@ -640,64 +640,63 @@ const LandingPage = () => {
 
 // Data dummy (tetap sama seperti sebelumnya)
 const stats = [
-  { number: "10K+", label: "Pengguna Aktif", icon: "👥" },
-  { number: "50+", label: "Ahli Kesehatan", icon: "👩‍⚕️" },
+  { number: "100%", label: "Gratis", icon: "👥" },
   { number: "100%", label: "Privasi Terjaga", icon: "🔒" },
   { number: "24/7", label: "Dukungan", icon: "⏰" }
 ];
-
+// Enhanced features data
 const features = [
   {
-    icon: "🧠",
-    title: "Konseling Online",
-    description: "Terhubung dengan profesional kesehatan mental kapan saja dan di mana saja"
+    icon: '🧠',
+    title: 'Mentor AI',
+    description: 'Menggunakan teknologi Large Language Model (LLM) dan RAG untuk memberikan dukungan, wawasan, dan saran terkait kesehatan mental secara real-time.'
   },
   {
-    icon: "📱",
-    title: "Aplikasi Mobile",
-    description: "Akses mudah melalui smartphone dengan antarmuka yang ramah pengguna"
+    icon: '📘',
+    title: 'Blog Kesehatan Mental',
+    description: 'Artikel berbasis penelitian dari ahli kesehatan mental untuk meningkatkan pemahaman dan kesadaran tentang berbagai isu psikologis.'
   },
   {
-    icon: "📊",
-    title: "Pelacakan Mood",
-    description: "Pantau kondisi emosional Anda dengan alat pelacakan yang intuitif"
+    icon: '🎥',
+    title: 'Video Edukasi',
+    description: 'Konten video interaktif yang mencakup teknik relaksasi, manajemen stres, dan terapi perilaku kognitif sederhana.'
   },
   {
-    icon: "🎯",
-    title: "Program Personal",
-    description: "Dapatkan program yang disesuaikan dengan kebutuhan kesehatan mental Anda"
+    icon: '👥',
+    title: 'Komunitas Support',
+    description: 'Ruang aman untuk berbagi pengalaman dan mendapatkan dukungan dari sesama pengguna yang memahami perjuangan Anda.'
   },
   {
-    icon: "📝",
-    title: "Artikel Edukasi",
-    description: "Akses konten edukatif tentang berbagai topik kesehatan mental"
+    icon: '📝',
+    title: 'E-book Eksklusif',
+    description: 'Panduan mendalam tentang berbagai topik kesehatan mental yang dapat diunduh dan dipelajari sesuai kecepatan Anda.'
   },
   {
-    icon: "👥",
-    title: "Komunitas",
-    description: "Bergabung dengan komunitas yang mendukung perjalanan kesehatan mental Anda"
+    icon: '🎯',
+    title: 'Event Virtual',
+    description: 'Webinar dan workshop langsung dengan psikolog dan praktisi kesehatan mental terkemuka.'
   }
 ];
 
+// Enhanced testimonials data
 const testimonials = [
   {
-    quote: "HaloSani membantu saya melewati masa sulit dengan dukungan profesional yang selalu tersedia.",
-    name: "Dewi Anggraeni",
-    role: "Mahasiswa",
-    avatar: "👩"
+    quote: "Halosani membantu saya mengelola kecemasan saya dengan cara yang tidak pernah saya duga sebelumnya. Sesi yang dipandu sangat mengubah hidup saya. Sekarang saya bisa tidur nyenyak dan menghadapi hari dengan lebih percaya diri.",
+    avatar: "👩",
+    name: "Ghavira",
+    role: "Mahasiswa, 22 tahun"
   },
   {
-    quote: "Sebagai pekerja kantoran, stres sering melanda. Dengan HaloSani, saya belajar mengelola stres dengan lebih baik.",
-    name: "Budi Santoso",
-    role: "Karyawan",
-    avatar: "👨"
+    quote: "Sebagai seseorang yang awalnya skeptis terhadap aplikasi kesehatan mental, Halosani benar-benar mengejutkan saya. Fitur mentor AI-nya sangat membantu ketika saya butuh seseorang untuk diajak bicara di tengah malam.",
+    avatar: "👨",
+    name: "Ahmad",
+    role: "Freelancer, 21 tahun"
   },
   {
-    quote: "Aplikasi ini sangat membantu anak saya yang mengalami kecemasan sosial. Terima kasih HaloSani!",
-    name: "Ibu Siti",
-    role: "Ibu Rumah Tangga",
-    avatar: "👵"
+    quote: "Komunitas di Halosani membuat saya merasa tidak sendirian. Saya menemukan teman-teman yang memahami perjuangan saya tanpa menghakimi. Aplikasi ini lebih dari sekadar tool - ini adalah sistem pendukung yang nyata.",
+    avatar: "🧑",
+    name: "Gagah",
+    role: "Karyawan, 21 tahun"
   }
 ];
-
 export default LandingPage;
